@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\AutorController;
+use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\ProyectoController;
@@ -37,4 +38,5 @@ Route::get('/estadisticas/proyectos/categoria', [EstadisticasController::class, 
 Route::get('/estadisticas/asesores/sede', [EstadisticasController::class, 'asesoresPorSede']);
 Route::get('/estadisticas/participantes/sede', [EstadisticasController::class, 'participantesPorSede']);
 Route::get('/estadisticas/participantes/categoria', [EstadisticasController::class, 'participantesPorCategoria']);
-
+// importar curriculum de juez
+Route::post('/cv/subir', [CurriculumController::class, 'import']);

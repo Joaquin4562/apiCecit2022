@@ -10,15 +10,15 @@ class ProyectoController extends Controller
     public function get($id)
     {
         try {
-            $proyecto = Proyecto::where('id',$id)->first();
+            $proyecto = Proyecto::where('id', $id)->first();
             return response()->json([
                 'error' => false,
-                'data' => $proyecto
+                'data' => $proyecto,
             ]);
-        } catch (\Exception $th) {
+        } catch (\Exception$th) {
             return response()->json([
                 'error' => true,
-                'msg' => $th->getMessage()
+                'msg' => $th->getMessage(),
             ]);
         }
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\ProyectoController;
 use Illuminate\Support\Facades\Route;
 
 //Proyectos
+Route::get('/proyecto/{id}', [ProyectoController::class, 'get']);
 Route::get('/proyectos', [ProyectoController::class, 'getProyectosAll']);
 Route::get('/proyectos/{sede}', [ProyectoController::class, 'getProyectosSede']);
 Route::get('/proyectos/{sede}/{cat}', [ProyectoController::class, 'getProyectosSedeCat']);

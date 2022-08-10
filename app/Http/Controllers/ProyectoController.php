@@ -7,6 +7,21 @@ use Illuminate\Support\Facades\DB;
 
 class ProyectoController extends Controller
 {
+    public function get($id)
+    {
+        try {
+            $proyecto = Proyecto::where('id',$id)->first();
+            return response()->json([
+                'error' => false,
+                'data' => $proyecto
+            ]);
+        } catch (\Exception $th) {
+            return response()->json([
+                'error' => true,
+                'msg' => $th->getMessage()
+            ]);
+        }
+    }
     public function getProyectosAll()
     {
         $proyectos = DB::select("CALL getProyectosAll()");

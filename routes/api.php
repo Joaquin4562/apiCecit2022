@@ -3,6 +3,7 @@
 use App\Http\Controllers\AsesorController;
 use App\Http\Controllers\AutorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EstadisticasController;
 use App\Http\Controllers\ProyectoController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,10 @@ Route::get('/dashboard/header/{sede}', [DashboardController::class, 'getHeaderDa
 // estadisticas proyectos por categorias
 Route::get('dashboard/estadisticas', [DashboardController::class, 'getEstadisticasAll']);
 Route::get('dashboard/estadisticas/{sede}', [DashboardController::class, 'getEstadisticasSede']);
-
+//estadisticas generales
+Route::get('/estadisticas/proyectos/sede', [EstadisticasController::class, 'proyectosPorSede']);
+Route::get('/estadisticas/proyectos/categoria', [EstadisticasController::class, 'proyectosPorCategoria']);
+Route::get('/estadisticas/asesores/sede', [EstadisticasController::class, 'asesoresPorSede']);
+Route::get('/estadisticas/participantes/sede', [EstadisticasController::class, 'participantesPorSede']);
+Route::get('/estadisticas/participantes/categoria', [EstadisticasController::class, 'participantesPorCategoria']);
 

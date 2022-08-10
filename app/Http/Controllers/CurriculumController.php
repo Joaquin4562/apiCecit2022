@@ -11,8 +11,9 @@ class CurriculumController extends Controller
         try {
             if($request->hasFile('cv')) {
                 $nombre = str_replace(' ', '-', $request->nombre);
+                $usuario = str_replace(' ', '-', $request->usuario);
                 $image = $request->file('cv');
-                $reImage = $request->usuario . '-'.$nombre.'_CV.'.$image->getClientOriginalExtension();
+                $reImage = $usuario . '-'.$nombre.'_CV.'.$image->getClientOriginalExtension();
                 $destination = public_path('curriculumns-jueces');
                 $image->move($destination, $reImage);
                 return response()->json([

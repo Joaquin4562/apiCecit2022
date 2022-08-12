@@ -10,7 +10,23 @@ class AsesorController extends Controller
 {
     public function getAsesoresAll()
     {
-        $asesores = DB::select("CALL getAsesoresAll()");
+        $asesores = DB::select("SELECT
+        asesor.id as id_asesores,
+        proyecto.sede as sede,
+        asesor.nombre as nombre,
+        asesor.apellidop as ape_pat,
+        asesor.apellidom as ape_mat,
+        asesor.RFC as rfc,
+        asesor.telefono as telefono,
+        asesor.CURP as curp,
+        asesor.domicilio as domicilio,
+        asesor.ciudad as municipio,
+        asesor.estado as localidad,
+        asesor.correo as email,
+        asesor.descripcion as descripcion
+        FROM asesor
+        JOIN proyecto
+        ON asesor.idparticipante = proyecto.idparticipante");
         return response()->json([
             'error' => false,
             'asesores' => $asesores,
@@ -18,7 +34,24 @@ class AsesorController extends Controller
     }
     public function getAsesoresSede($sede)
     {
-        $asesores = DB::select("CALL getAsesoresSede('" . $sede . "')");
+        $asesores = DB::select("SELECT
+        asesor.id as id_asesores,
+        proyecto.sede as sede,
+        asesor.nombre as nombre,
+        asesor.apellidop as ape_pat,
+        asesor.apellidom as ape_mat,
+        asesor.RFC as rfc,
+        asesor.telefono as telefono,
+        asesor.CURP as curp,
+        asesor.domicilio as domicilio,
+        asesor.ciudad as municipio,
+        asesor.estado as localidad,
+        asesor.correo as email,
+        asesor.descripcion as descripcion
+        FROM asesor
+        JOIN proyecto
+        ON asesor.idparticipante = proyecto.idparticipante
+        WHERE proyecto.sede = '".$sede."'");
         return response()->json([
             'error' => false,
             'asesores' => $asesores,

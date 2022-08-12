@@ -24,7 +24,28 @@ class ProyectoController extends Controller
     }
     public function getProyectosAll()
     {
-        $proyectos = DB::select("CALL getProyectosAll()");
+        $proyectos = DB::select("SELECT
+    proyecto.idparticipante as id_proyectos,
+    asesor.id AS id_asesores,
+    CONCAT(
+        asesor.nombre,
+        ' ',
+        asesor.apellidop,
+        ' ',
+        asesor.apellidom
+    ) AS asesor,
+    proyecto.area AS areas,
+    proyecto.categoria AS categorias,
+    proyecto.sede AS sede,
+    proyecto.titulo AS nombre,
+    proyecto.modalidad as modalidad,
+    proyecto.descripcion AS resumen,
+    proyecto.urlvideo AS video,
+    proyecto_extenso.Location as pdf
+FROM
+    proyecto
+JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
+JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
         return response()->json([
             'error' => false,
             'proyectos' => $proyectos,
@@ -32,7 +53,29 @@ class ProyectoController extends Controller
     }
     public function getProyectosSede($sede)
     {
-        $proyectos = DB::select("CALL getProyectosSede('" . $sede . "')");
+        $proyectos = DB::select("SELECT
+        proyecto.idparticipante as id_proyectos,
+        asesor.id AS id_asesores,
+        CONCAT(
+            asesor.nombre,
+            ' ',
+            asesor.apellidop,
+            ' ',
+            asesor.apellidom
+        ) AS asesor,
+        proyecto.area AS areas,
+        proyecto.categoria AS categorias,
+        proyecto.sede AS sede,
+        proyecto.titulo AS nombre,
+        proyecto.modalidad as modalidad,
+        proyecto.descripcion AS resumen,
+        proyecto.urlvideo AS video,
+        proyecto_extenso.Location as pdf
+    FROM
+        proyecto
+    JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
+    JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
+    WHERE proyecto.sede = '".$sede."'");
         return response()->json([
             'error' => false,
             'proyectos' => $proyectos,

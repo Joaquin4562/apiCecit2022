@@ -80,7 +80,7 @@ class AutorController extends Controller
         integrante1.RFC AS rfc,
         integrante1.telefono AS telefono,
         integrante1.correo AS email,
-        integrante1.ingles AS invel_inges,
+        integrante1.ingles AS nivel_inges,
         integrante1.institucion AS escuela,
         integrante1.ciudad AS municipio,
         integrante1.estado AS localidad,

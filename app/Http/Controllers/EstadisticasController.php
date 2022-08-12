@@ -14,17 +14,19 @@ class EstadisticasController extends Controller
         try {
             $mante = count(Proyecto::where('sede', 'mante')->get());
             $victoria = count(Proyecto::where('sede', 'victoria')->get());
+            $madero = count(Proyecto::where('sede', 'madero')->get());
             $matamoros = count(Proyecto::where('sede', 'matamoros')->get());
             $reynosa = count(Proyecto::where('sede', 'reynosa')->get());
             $nuevoLaredo = count(Proyecto::where('sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
-                    'mante' => $mante,
-                    'victoria' => $victoria,
-                    'reynosa' => $reynosa,
-                    'matamoros' => $matamoros,
-                    'nuevoLaredo' => $nuevoLaredo,
+                    'El Mante' => $mante,
+                    'Victoria' => $victoria,
+                    'Madero' => $madero,
+                    'Reynosa' => $reynosa,
+                    'Matamoros' => $matamoros,
+                    'Nuevo Laredo' => $nuevoLaredo,
                 ],
             ]);
         } catch (\Exception$th) {
@@ -49,7 +51,7 @@ class EstadisticasController extends Controller
                     'petit' => $petit,
                     'kids' => $kids,
                     'juvenil' => $juvenil,
-                    'mediaSuperior' => $mediaSuperior,
+                    'media-superior' => $mediaSuperior,
                     'superior' => $superior,
                     'posgrado' => $posgrado,
                 ],
@@ -66,17 +68,19 @@ class EstadisticasController extends Controller
         try {
             $mante = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'mante')->get());
             $victoria = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'victoria')->get());
+            $madero = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'madero')->get());
             $matamoros = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'matamoros')->get());
             $reynosa = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'reynosa')->get());
             $nuevoLaredo = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
-                    'mante' => $mante,
-                    'victoria' => $victoria,
-                    'reynosa' => $reynosa,
-                    'matamoros' => $matamoros,
-                    'nuevoLaredo' => $nuevoLaredo,
+                    'ElMante' => $mante,
+                    'Victoria' => $victoria,
+                    'Madero' => $madero,
+                    'Reynosa' => $reynosa,
+                    'Matamoros' => $matamoros,
+                    'Nuevo Laredo' => $nuevoLaredo,
                 ],
             ]);
         } catch (\Exception$th) {
@@ -91,22 +95,25 @@ class EstadisticasController extends Controller
         try {
             $mante = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'mante')->get());
             $victoria = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'victoria')->get());
+            $madero = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'madero')->get());
             $matamoros = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'matamoros')->get());
             $reynosa = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'reynosa')->get());
             $nuevoLaredo = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'nuevo laredo')->get());
             $mante2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'mante')->get());
             $victoria2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'victoria')->get());
+            $madero2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'madero')->get());
             $matamoros2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'matamoros')->get());
             $reynosa2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'reynosa')->get());
             $nuevoLaredo2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
-                    'mante' => $mante + $mante2,
-                    'victoria' => $victoria + $victoria2,
-                    'reynosa' => $reynosa + $reynosa2,
-                    'matamoros' => $matamoros + $matamoros2,
-                    'nuevoLaredo' => $nuevoLaredo + $nuevoLaredo2,
+                    'El Mante' => $mante + $mante2,
+                    'Victoria' => $victoria + $victoria2,
+                    'Madero' => $madero + $madero2,
+                    'Reynosa' => $reynosa + $reynosa2,
+                    'Matamoros' => $matamoros + $matamoros2,
+                    'Nuevo Laredo' => $nuevoLaredo + $nuevoLaredo2,
                 ],
             ]);
         } catch (\Exception$th) {
@@ -137,7 +144,7 @@ class EstadisticasController extends Controller
                     'petit' => $petit + $petit2,
                     'kids' => $kids + $kids2,
                     'juvenil' => $juvenil + $juvenil2,
-                    'mediaSuperior' => $mediaSuperior + $mediaSuperior2,
+                    'media-superior' => $mediaSuperior + $mediaSuperior2,
                     'superior' => $superior + $superior2,
                     'posgrado' => $posgrado + $posgrado2,
                 ],

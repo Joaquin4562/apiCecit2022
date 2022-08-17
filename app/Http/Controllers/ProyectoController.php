@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Proyecto;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProyectoController extends Controller
@@ -25,7 +26,8 @@ class ProyectoController extends Controller
     public function getProyectosAll()
     {
         $proyectos = DB::select("SELECT
-    proyecto.idparticipante as id_proyectos,
+    proyecto.id as id_proyectos,
+    proyecto.idparticipante as id_participante,
     asesor.id AS id_asesores,
     CONCAT(
         asesor.nombre,
@@ -75,7 +77,7 @@ JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
         proyecto
     JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
     JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
-    WHERE proyecto.sede = '".$sede."'");
+    WHERE proyecto.sede = '" . $sede . "'");
         return response()->json([
             'error' => false,
             'proyectos' => $proyectos,
@@ -105,6 +107,33 @@ JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
                 return response()->json([
                     'error' => false,
                     'msg' => 'El proyecto se elimino con exito',
+                ]);
+            }
+            return response()->json([
+                'error' => true,
+                'msg' => 'No se encontro el proyecto',
+            ]);
+        } catch (\Exception$th) {
+            return response()->json([
+                'error' => true,
+                'msg' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function update(Request $request)
+    {
+        try {
+            $proyecto = Proyecto::where('id', $request->id_proyectos)->first();
+            if ($proyecto) {
+                $proyecto->titulo = $request->nombre;
+                $proyecto->sede = $request->sede;
+                $proyecto->categoria = $request->categorias;
+                $proyecto->descripcion = $request->descripcion;
+                $proyecto->area = $request->areas;
+                $proyecto->update();
+                return response()->json([
+                    'error' => false,
+                    'msg' => 'se actualizo correctamente el proyecto',
                 ]);
             }
             return response()->json([

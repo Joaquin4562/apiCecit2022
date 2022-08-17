@@ -13,12 +13,13 @@ Route::get('/proyecto/{id}', [ProyectoController::class, 'get']);
 Route::get('/proyectos', [ProyectoController::class, 'getProyectosAll']);
 Route::get('/proyectos/{sede}', [ProyectoController::class, 'getProyectosSede']);
 Route::get('/proyectos/{sede}/{cat}', [ProyectoController::class, 'getProyectosSedeCat']);
-Route::delete('/proyectos/{id}', [ProyectoController::class, 'delete']);
+Route::delete('/proyecto/{id}', [ProyectoController::class, 'delete']);
+Route::put('/proyecto',[ProyectoController::class, 'update']);
 //Asesores
 Route::get('/asesores', [AsesorController::class, 'getAsesoresAll']);
 Route::get('/asesores/{sede}', [AsesorController::class, 'getAsesoresSede']);
-Route::put('/asesores/{id}', [AsesorController::class, 'update']);
-Route::delete('/asesores/{id}', [AsesorController::class, 'delete']);
+Route::put('/asesor/{id}', [AsesorController::class, 'update']);
+Route::delete('/asesor/{id}', [AsesorController::class, 'delete']);
 //Autores
 Route::get('/autores', [AutorController::class, 'getAutoresAll']);
 Route::get('/autores/{sede}', [AutorController::class, 'getAutoresSede']);

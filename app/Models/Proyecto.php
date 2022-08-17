@@ -11,4 +11,16 @@ class Proyecto extends Model
     protected $table = 'proyecto';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = [
+        'idparticipante',
+        'modalidad',
+        'sede',
+        'urlvideo',
+        'categoria',
+        'titulo',
+        'descripcion',
+        'area',
+        'foto',
+        'activo_foto',
+    ];
 }

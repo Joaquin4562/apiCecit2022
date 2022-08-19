@@ -57,15 +57,15 @@ class AsesorController extends Controller
             'asesores' => $asesores,
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
-            $asesor = Asesor::where('id', $id)->first();
+            $asesor = Asesor::where('id', $request->id_asesores)->first();
             $asesor->nombre = $request->nombre;
-            $asesor->apellidom = $request->apellidom;
-            $asesor->apellidop = $request->apellidop;
+            $asesor->apellidom = $request->ape_mat;
+            $asesor->apellidop = $request->ape_pat;
             $asesor->telefono = $request->telefono;
-            $asesor->correo = $request->correo;
+            $asesor->correo = $request->email;
             $asesor->descripcion = $request->descripcion;
             $asesor->update();
             return response()->json([

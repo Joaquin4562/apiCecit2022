@@ -18,13 +18,13 @@ Route::put('/proyecto',[ProyectoController::class, 'update']);
 //Asesores
 Route::get('/asesores', [AsesorController::class, 'getAsesoresAll']);
 Route::get('/asesores/{sede}', [AsesorController::class, 'getAsesoresSede']);
-Route::put('/asesor/{id}', [AsesorController::class, 'update']);
+Route::put('/asesor', [AsesorController::class, 'update']);
 Route::delete('/asesor/{id}', [AsesorController::class, 'delete']);
 //Autores
 Route::get('/autores', [AutorController::class, 'getAutoresAll']);
 Route::get('/autores/{sede}', [AutorController::class, 'getAutoresSede']);
-Route::delete('/autores/{id}', [AutorController::class, 'delete']);
-Route::put('/autores/{id}', [AutorController::class, 'update']);
+Route::delete('/autor/{id}', [AutorController::class, 'delete']);
+Route::put('/autor', [AutorController::class, 'update']);
 // rutas para el dashboard
 //header
 // proyectos - participantes

@@ -22,7 +22,7 @@ class AutorController extends Controller
         integrante1.RFC AS rfc,
         integrante1.telefono AS telefono,
         integrante1.correo AS email,
-        integrante1.ingles AS nivel_inges,
+        integrante1.ingles AS nivel_ingles,
         integrante1.institucion AS escuela,
         integrante1.ciudad AS municipio,
         integrante1.estado AS localidad,
@@ -48,7 +48,7 @@ class AutorController extends Controller
         integrante2.RFC AS rfc,
         integrante2.telefono AS telefono,
         integrante2.correo AS email,
-        integrante2.ingles AS nivel_inges,
+        integrante2.ingles AS nivel_ingles,
         integrante2.institucion AS escuela,
         integrante2.ciudad AS municipio,
         integrante2.estado AS localidad,
@@ -80,7 +80,7 @@ class AutorController extends Controller
         integrante1.RFC AS rfc,
         integrante1.telefono AS telefono,
         integrante1.correo AS email,
-        integrante1.ingles AS nivel_inges,
+        integrante1.ingles AS nivel_ingles,
         integrante1.institucion AS escuela,
         integrante1.ciudad AS municipio,
         integrante1.estado AS localidad,
@@ -105,7 +105,7 @@ class AutorController extends Controller
         integrante2.RFC AS rfc,
         integrante2.telefono AS telefono,
         integrante2.correo AS email,
-        integrante2.ingles AS nivel_inges,
+        integrante2.ingles AS nivel_ingles,
         integrante2.institucion AS escuela,
         integrante2.ciudad AS municipio,
         integrante2.estado AS localidad,
@@ -123,32 +123,33 @@ class AutorController extends Controller
             'autores' => $autores,
         ]);
     }
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         try {
-            $autor1 = Integrante1::where('id', $id)->first();
-            $autor2 = Integrante2::where('id', $id)->first();
+            $autor1 = Integrante1::where('id', $request->id_autores)->first();
+            $autor2 = Integrante2::where('id', $request->id_autores)->first();
             if ($autor1) {
                 $autor1->nombre = $request->nombre;
-                $autor1->apellidop = $request->apellidop;
-                $autor1->apellidom = $request->apellidom;
-                $autor1->CURP = $request->CURP;
-                $autor1->RFC = $request->RFC;
+                $autor1->apellidop = $request->ape_pat;
+                $autor1->apellidom = $request->ape_mat;
+                $autor1->CURP = $request->curp;
+                $autor1->RFC = $request->rfc;
                 $autor1->telefono = $request->telefono;
-                $autor1->correo = $request->correo;
+                $autor1->correo = $request->email;
                 $autor1->update();
                 return response()->json([
                     'error' => false,
                     'msg' => 'El autor se actualizo correctamente',
                 ]);
-            } else if ($autor2) {
+            }
+            if ($autor2) {
                 $autor2->nombre = $request->nombre;
-                $autor2->apellidop = $request->apellidop;
-                $autor2->apellidom = $request->apellidom;
-                $autor2->CURP = $request->CURP;
-                $autor2->RFC = $request->RFC;
+                $autor2->apellidop = $request->ape_pat;
+                $autor2->apellidom = $request->ape_mat;
+                $autor2->CURP = $request->curp;
+                $autor2->RFC = $request->rfc;
                 $autor2->telefono = $request->telefono;
-                $autor2->correo = $request->correo;
+                $autor2->correo = $request->email;
                 $autor2->update();
                 return response()->json([
                     'error' => false,

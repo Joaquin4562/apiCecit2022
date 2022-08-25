@@ -12,9 +12,9 @@ class DashboardController extends Controller
     public function getHeaderDashboardAll()
     {
         try {
-            $proyectos = count(Proyecto::all());
-            $integrante1 = count(Integrante1::all());
-            $integrante2 = count(Integrante2::all());
+            $proyectos = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->get());
+            $integrante1 = count(Integrante1::join('usuarios', 'integrante1.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->get());
+            $integrante2 = count(Integrante2::join('usuarios', 'integrante2.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->get());
             return response()->json([
                 'error' => false,
                 'data' => [
@@ -32,21 +32,23 @@ class DashboardController extends Controller
     public function getHeaderDashboardSede($sede)
     {
         try {
-            $proyectos = count(Proyecto::where('sede', $sede)->get());
+            $proyectos = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', $sede)->get());
             $integrante1 = count(DB::select('SELECT
                                             *
                                         FROM
                                             integrante1
                                         JOIN proyecto ON integrante1.idparticipante = proyecto.idparticipante
-                                        WHERE
-                                            proyecto.sede = "' . $sede . '"'));
+                                        JOIN usuarios ON proyecto.idparticipante = usuarios.idparticipante
+                                        WHERE usuarios.estado = 0
+                                        AND proyecto.sede = "' . $sede . '"'));
             $integrante2 = count(DB::select('SELECT
                                             *
                                         FROM
                                             integrante2
                                         JOIN proyecto ON integrante2.idparticipante = proyecto.idparticipante
-                                        WHERE
-                                            proyecto.sede = "' . $sede . '"'));
+                                        JOIN usuarios ON proyecto.idparticipante = usuarios.idparticipante
+                                        WHERE usuarios.estado = 0
+                                        AND proyecto.sede = "' . $sede . '"'));
             return response()->json([
                 'error' => false,
                 'data' => [
@@ -64,12 +66,12 @@ class DashboardController extends Controller
     public function getEstadisticasAll()
     {
         try {
-            $kids = count(Proyecto::where('categoria', 'kids')->get());
-            $juvenil = count(Proyecto::where('categoria', 'juvenil')->get());
-            $petit = count(Proyecto::where('categoria', 'petit')->get());
-            $mediaSuperior = count(Proyecto::where('categoria', 'media superior')->get());
-            $superior = count(Proyecto::where('categoria', 'superior')->get());
-            $posgrado = count(Proyecto::where('categoria', 'posgrado')->get());
+            $kids = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'kids')->get());
+            $juvenil = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'juvenil')->get());
+            $petit = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'petit')->get());
+            $mediaSuperior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'media superior')->get());
+            $superior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'superior')->get());
+            $posgrado = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'posgrado')->get());
             return response()->json([
                 'error' => false,
                 'data' => [
@@ -91,12 +93,12 @@ class DashboardController extends Controller
     public function getEstadisticasSede($sede)
     {
         try {
-            $kids = count(Proyecto::where('categoria', 'kids')->where('sede', $sede)->get());
-            $juvenil = count(Proyecto::where('categoria', 'juvenil')->where('sede', $sede)->get());
-            $petit = count(Proyecto::where('categoria', 'petit')->where('sede', $sede)->get());
-            $mediaSuperior = count(Proyecto::where('categoria', 'media superior')->where('sede', $sede)->get());
-            $superior = count(Proyecto::where('categoria', 'superior')->where('sede', $sede)->get());
-            $posgrado = count(Proyecto::where('categoria', 'posgrado')->where('sede', $sede)->get());
+            $kids = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'kids')->where('sede', $sede)->get());
+            $juvenil = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'juvenil')->where('sede', $sede)->get());
+            $petit = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'petit')->where('sede', $sede)->get());
+            $mediaSuperior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'media superior')->where('sede', $sede)->get());
+            $superior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'superior')->where('sede', $sede)->get());
+            $posgrado = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'posgrado')->where('sede', $sede)->get());
             return response()->json([
                 'error' => false,
                 'data' => [

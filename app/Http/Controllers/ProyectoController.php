@@ -46,28 +46,30 @@ class ProyectoController extends Controller
     public function getProyectosAll()
     {
         $proyectos = DB::select("SELECT
-    proyecto.id as id_proyectos,
-    proyecto.idparticipante as id_participante,
-    asesor.id AS id_asesores,
-    CONCAT(
-        asesor.nombre,
-        ' ',
-        asesor.apellidop,
-        ' ',
-        asesor.apellidom
-    ) AS asesor,
-    proyecto.area AS areas,
-    proyecto.categoria AS categorias,
-    proyecto.sede AS sede,
-    proyecto.titulo AS nombre,
-    proyecto.modalidad as modalidad,
-    proyecto.descripcion AS resumen,
-    proyecto.urlvideo AS video,
-    proyecto_extenso.Location as pdf
-FROM
-    proyecto
-JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
-JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
+        proyecto.id as id_proyectos,
+        proyecto.idparticipante as id_participante,
+        asesor.id AS id_asesores,
+        CONCAT(
+            asesor.nombre,
+            ' ',
+            asesor.apellidop,
+            ' ',
+            asesor.apellidom
+        ) AS asesor,
+        proyecto.area AS areas,
+        proyecto.categoria AS categorias,
+        proyecto.sede AS sede,
+        proyecto.titulo AS nombre,
+        proyecto.modalidad as modalidad,
+        proyecto.descripcion AS resumen,
+        proyecto.urlvideo AS video,
+        proyecto_extenso.Location as pdf
+    FROM
+        proyecto
+    JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
+    JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
+    JOIN usuarios ON proyecto.idparticipante = usuarios.idparticipante
+    WHERE usuarios.estado = 0");
         return response()->json([
             'error' => false,
             'proyectos' => $proyectos,
@@ -97,7 +99,9 @@ JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
         proyecto
     JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
     JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
-    WHERE proyecto.sede = '" . $sede . "'");
+    JOIN usuarios ON proyecto.idparticipante = usuarios.idparticipante
+    WHERE usuarios.estado = 0
+    AND proyecto.sede = '" . $sede . "'");
         return response()->json([
             'error' => false,
             'proyectos' => $proyectos,
@@ -106,7 +110,32 @@ JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante");
     public function getProyectosSedeCat($sede, $cat)
     {
         try {
-            $proyectos = Proyecto::where('sede', $sede)->where('categoria', $cat)->get();
+            $proyectos = DB::select("SELECT
+            proyecto.idparticipante as id_proyectos,
+            asesor.id AS id_asesores,
+            CONCAT(
+                asesor.nombre,
+                ' ',
+                asesor.apellidop,
+                ' ',
+                asesor.apellidom
+            ) AS asesor,
+            proyecto.area AS areas,
+            proyecto.categoria AS categorias,
+            proyecto.sede AS sede,
+            proyecto.titulo AS nombre,
+            proyecto.modalidad as modalidad,
+            proyecto.descripcion AS resumen,
+            proyecto.urlvideo AS video,
+            proyecto_extenso.Location as pdf
+        FROM
+            proyecto
+        JOIN asesor ON proyecto.idparticipante = asesor.idparticipante
+        JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
+        JOIN usuarios ON proyecto.idparticipante = usuarios.idparticipante
+        WHERE proyecto.sede = '" . $sede . "'
+        AND proyecto.categoria = '".$cat."'
+        AND usuarios.estado = 0");
             return response()->json([
                 'error' => false,
                 'data' => $proyectos,

@@ -12,12 +12,12 @@ class EstadisticasController extends Controller
     public function proyectosPorSede()
     {
         try {
-            $mante = count(Proyecto::where('sede', 'mante')->get());
-            $victoria = count(Proyecto::where('sede', 'victoria')->get());
-            $madero = count(Proyecto::where('sede', 'madero')->get());
-            $matamoros = count(Proyecto::where('sede', 'matamoros')->get());
-            $reynosa = count(Proyecto::where('sede', 'reynosa')->get());
-            $nuevoLaredo = count(Proyecto::where('sede', 'nuevo laredo')->get());
+            $mante = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'el mante')->where('usuarios.estado', 0)->get());
+            $victoria = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'victoria')->where('usuarios.estado', 0)->get());
+            $matamoros = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'matamoros')->where('usuarios.estado', 0)->get());
+            $madero = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'madero')->where('usuarios.estado', 0)->get());
+            $reynosa = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'reynosa')->where('usuarios.estado', 0)->get());
+            $nuevoLaredo = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('proyecto.sede', 'nuevo laredo')->where('usuarios.estado', 0)->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -39,12 +39,12 @@ class EstadisticasController extends Controller
     public function proyectosPorCategoria()
     {
         try {
-            $petit = count(Proyecto::where('categoria', 'petit')->get());
-            $kids = count(Proyecto::where('categoria', 'kids')->get());
-            $juvenil = count(Proyecto::where('categoria', 'juvenil')->get());
-            $mediaSuperior = count(Proyecto::where('categoria', 'media superior')->get());
-            $superior = count(Proyecto::where('categoria', 'superior')->get());
-            $posgrado = count(Proyecto::where('categoria', 'posgrado')->get());
+            $petit = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'petit')->get());
+            $kids = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'kids')->get());
+            $juvenil = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'juvenil')->get());
+            $mediaSuperior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'media superior')->get());
+            $superior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'superior')->get());
+            $posgrado = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'posgrado')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -66,12 +66,12 @@ class EstadisticasController extends Controller
     public function proyectosPorCategoriaPorSede($sede)
     {
         try {
-            $petit = count(Proyecto::where('categoria', 'petit')->where('sede', $sede)->get());
-            $kids = count(Proyecto::where('categoria', 'kids')->where('sede', $sede)->get());
-            $juvenil = count(Proyecto::where('categoria', 'juvenil')->where('sede', $sede)->get());
-            $mediaSuperior = count(Proyecto::where('categoria', 'media superior')->where('sede', $sede)->get());
-            $superior = count(Proyecto::where('categoria', 'superior')->where('sede', $sede)->get());
-            $posgrado = count(Proyecto::where('categoria', 'posgrado')->where('sede', $sede)->get());
+            $petit = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'petit')->where('sede', $sede)->get());
+            $kids = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'kids')->where('sede', $sede)->get());
+            $juvenil = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'juvenil')->where('sede', $sede)->get());
+            $mediaSuperior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'media superior')->where('sede', $sede)->get());
+            $superior = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'superior')->where('sede', $sede)->get());
+            $posgrado = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('categoria', 'posgrado')->where('sede', $sede)->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -93,12 +93,12 @@ class EstadisticasController extends Controller
     public function asesoresPorSede()
     {
         try {
-            $mante = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'mante')->get());
-            $victoria = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'victoria')->get());
-            $madero = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'madero')->get());
-            $matamoros = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'matamoros')->get());
-            $reynosa = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'reynosa')->get());
-            $nuevoLaredo = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->where('proyecto.sede', 'nuevo laredo')->get());
+            $mante = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'el mante')->get());
+            $victoria = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'victoria')->get());
+            $madero = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'madero')->get());
+            $matamoros = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'matamoros')->get());
+            $reynosa = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'reynosa')->get());
+            $nuevoLaredo = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -120,18 +120,18 @@ class EstadisticasController extends Controller
     public function participantesPorSede()
     {
         try {
-            $mante = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'mante')->get());
-            $victoria = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'victoria')->get());
-            $madero = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'madero')->get());
-            $matamoros = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'matamoros')->get());
-            $reynosa = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'reynosa')->get());
-            $nuevoLaredo = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'nuevo laredo')->get());
-            $mante2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'mante')->get());
-            $victoria2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'victoria')->get());
-            $madero2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'madero')->get());
-            $matamoros2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'matamoros')->get());
-            $reynosa2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'reynosa')->get());
-            $nuevoLaredo2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('sede', 'nuevo laredo')->get());
+            $mante = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'el mante')->get());
+            $victoria = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'victoria')->get());
+            $madero = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'madero')->get());
+            $matamoros = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'matamoros')->get());
+            $reynosa = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'reynosa')->get());
+            $nuevoLaredo = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'nuevo laredo')->get());
+            $mante2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'mante')->get());
+            $victoria2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'victoria')->get());
+            $madero2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'madero')->get());
+            $matamoros2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'matamoros')->get());
+            $reynosa2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'reynosa')->get());
+            $nuevoLaredo2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -153,18 +153,18 @@ class EstadisticasController extends Controller
     public function participantesPorCategoria()
     {
         try {
-            $petit = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'petit')->get());
-            $kids = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'kids')->get());
-            $juvenil = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'juvenil')->get());
-            $mediaSuperior = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'media superior')->get());
-            $superior = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'superior')->get());
-            $posgrado = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'posgrado')->get());
-            $petit2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'petit')->get());
-            $kids2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'kids')->get());
-            $juvenil2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'juvenil')->get());
-            $mediaSuperior2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'media superior')->get());
-            $superior2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'superior')->get());
-            $posgrado2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->where('proyecto.categoria', 'posgrado')->get());
+            $petit = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'petit')->get());
+            $kids = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'kids')->get());
+            $juvenil = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'juvenil')->get());
+            $mediaSuperior = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'media superior')->get());
+            $superior = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'superior')->get());
+            $posgrado = count(Integrante1::join('proyecto', 'integrante1.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'posgrado')->get());
+            $petit2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'petit')->get());
+            $kids2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'kids')->get());
+            $juvenil2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'juvenil')->get());
+            $mediaSuperior2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'media superior')->get());
+            $superior2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'superior')->get());
+            $posgrado2 = count(Integrante2::join('proyecto', 'integrante2.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.categoria', 'posgrado')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [

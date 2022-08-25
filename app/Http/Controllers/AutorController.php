@@ -35,8 +35,11 @@ class AutorController extends Controller
     FROM
         integrante1
     JOIN proyecto ON integrante1.idparticipante = proyecto.idparticipante
+    JOIN usuarios ON integrante1.idparticipante = usuarios.idparticipante
     WHERE
         proyecto.sede = '".$sede."'
+    AND
+        usuarios.estado = 0
     UNION
     SELECT
         integrante2.id AS id_autores,
@@ -61,8 +64,10 @@ class AutorController extends Controller
     FROM
         integrante2
     JOIN proyecto ON integrante2.idparticipante = proyecto.idparticipante
+    JOIN usuarios ON integrante2.idparticipante = usuarios.idparticipante
     WHERE
-        proyecto.sede = '".$sede."'");
+        proyecto.sede = '".$sede."'
+    AND usuarios.estado = 0");
         return response()->json([
             'error' => false,
             'autores' => $autores,
@@ -93,6 +98,8 @@ class AutorController extends Controller
     FROM
         integrante1
     JOIN proyecto ON integrante1.idparticipante = proyecto.idparticipante
+    JOIN usuarios ON integrante1.idparticipante = usuarios.idparticipante
+    WHERE usuarios.estado = 0
 
     UNION
     SELECT
@@ -117,7 +124,9 @@ class AutorController extends Controller
         proyecto.area AS area
     FROM
         integrante2
-    JOIN proyecto ON integrante2.idparticipante = proyecto.idparticipante");
+    JOIN proyecto ON integrante2.idparticipante = proyecto.idparticipante
+    JOIN usuarios ON integrante2.idparticipante = usuarios.idparticipante
+    WHERE usuarios.estado = 0");
         return response()->json([
             'error' => false,
             'autores' => $autores,

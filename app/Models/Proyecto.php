@@ -22,5 +22,6 @@ class Proyecto extends Model
         'area',
         'foto',
         'activo_foto',
+        'status',
     ];
 }

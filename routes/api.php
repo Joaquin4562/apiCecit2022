@@ -36,6 +36,7 @@ Route::get('dashboard/estadisticas/{sede}', [DashboardController::class, 'getEst
 //estadisticas generales
 Route::get('/estadisticas/proyectos/sede', [EstadisticasController::class, 'proyectosPorSede']);
 Route::get('/estadisticas/proyectos/categoria', [EstadisticasController::class, 'proyectosPorCategoria']);
+Route::get('/estadisticas/proyectos/categoria/{sede}', [EstadisticasController::class, 'proyectosPorCategoriaPorSede']);
 Route::get('/estadisticas/asesores/sede', [EstadisticasController::class, 'asesoresPorSede']);
 Route::get('/estadisticas/participantes/sede', [EstadisticasController::class, 'participantesPorSede']);
 Route::get('/estadisticas/participantes/categoria', [EstadisticasController::class, 'participantesPorCategoria']);

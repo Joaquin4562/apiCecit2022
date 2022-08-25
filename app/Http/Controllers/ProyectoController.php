@@ -11,11 +11,31 @@ class ProyectoController extends Controller
     public function get($id)
     {
         try {
-            $proyecto = Proyecto::where('id', $id)->first();
+            $proyecto = DB::select("SELECT
+            proyecto.id as id_proyectos,
+            proyecto.idparticipante as id_participante,
+            proyecto.area AS areas,
+            proyecto.categoria AS categorias,
+            proyecto.sede AS sede,
+            proyecto.titulo AS nombre,
+            proyecto.modalidad as modalidad,
+            proyecto.descripcion AS resumen,
+            proyecto.urlvideo AS video,
+            proyecto_extenso.Location as pdf
+        FROM
+            proyecto
+        JOIN proyecto_extenso ON proyecto_extenso.Folder = proyecto.idparticipante
+        WHERE proyecto.id ='".$id."'");
+        if(count($proyecto) > 0) {
             return response()->json([
                 'error' => false,
-                'data' => $proyecto,
+                'data' => $proyecto[0],
             ]);
+        }
+        return response()->json([
+            'error' => true,
+            'msg' => 'no se encontro proyecto'
+        ]);
         } catch (\Exception$th) {
             return response()->json([
                 'error' => true,

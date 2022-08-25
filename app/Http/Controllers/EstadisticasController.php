@@ -63,6 +63,33 @@ class EstadisticasController extends Controller
             ]);
         }
     }
+    public function proyectosPorCategoriaPorSede($sede)
+    {
+        try {
+            $petit = count(Proyecto::where('categoria', 'petit')->where('sede', $sede)->get());
+            $kids = count(Proyecto::where('categoria', 'kids')->where('sede', $sede)->get());
+            $juvenil = count(Proyecto::where('categoria', 'juvenil')->where('sede', $sede)->get());
+            $mediaSuperior = count(Proyecto::where('categoria', 'media superior')->where('sede', $sede)->get());
+            $superior = count(Proyecto::where('categoria', 'superior')->where('sede', $sede)->get());
+            $posgrado = count(Proyecto::where('categoria', 'posgrado')->where('sede', $sede)->get());
+            return response()->json([
+                'error' => false,
+                'estadisticas' => [
+                    'petit' => $petit,
+                    'kids' => $kids,
+                    'juvenil' => $juvenil,
+                    'media-superior' => $mediaSuperior,
+                    'superior' => $superior,
+                    'posgrado' => $posgrado,
+                ],
+            ]);
+        } catch (\Exception$th) {
+            return response()->json([
+                'error' => true,
+                'msg' => $th->getMessage(),
+            ]);
+        }
+    }
     public function asesoresPorSede()
     {
         try {
@@ -75,7 +102,7 @@ class EstadisticasController extends Controller
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
-                    'ElMante' => $mante,
+                    'El Mante' => $mante,
                     'Victoria' => $victoria,
                     'Madero' => $madero,
                     'Reynosa' => $reynosa,

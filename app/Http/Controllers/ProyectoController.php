@@ -78,7 +78,8 @@ class ProyectoController extends Controller
     public function getProyectosSede($sede)
     {
         $proyectos = DB::select("SELECT
-        proyecto.idparticipante as id_proyectos,
+        proyecto.id as id_proyectos,
+        proyecto.idparticipante as id_participantes,
         asesor.id AS id_asesores,
         CONCAT(
             asesor.nombre,
@@ -111,7 +112,8 @@ class ProyectoController extends Controller
     {
         try {
             $proyectos = DB::select("SELECT
-            proyecto.idparticipante as id_proyectos,
+            proyecto.id  as id_proyectos,
+            proyecto.idparticipante as id_participantes,
             asesor.id AS id_asesores,
             CONCAT(
                 asesor.nombre,

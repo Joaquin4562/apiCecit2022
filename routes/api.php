@@ -5,6 +5,8 @@ use App\Http\Controllers\AutorController;
 use App\Http\Controllers\CurriculumController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EstadisticasController;
+use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\FasesController;
 use App\Http\Controllers\ProyectoController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +44,8 @@ Route::get('/estadisticas/participantes/sede', [EstadisticasController::class, '
 Route::get('/estadisticas/participantes/categoria', [EstadisticasController::class, 'participantesPorCategoria']);
 // importar curriculum de juez
 Route::post('/cv/subir', [CurriculumController::class, 'import']);
+// activar fase estatal e internacional
+Route::post('/fases/estatal', [FasesController::class, 'insertarGanadoresEstatal']);
+Route::post('/fases/internacional', [FasesController::class, 'insertarGanadoresInternacional']);
+// apis apra el excel
+Route::get('/excel/all', [ExcelController::class, 'all']);

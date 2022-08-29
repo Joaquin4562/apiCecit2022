@@ -74,17 +74,18 @@ class FasesController extends Controller
     }
     private function registrarGanadoresInternacional($proyecto)
     {
-        $proyecto = Proyecto::where('id', $proyecto->id_proyectos)->first();
+        $proyecto = Proyecto::where('id', $proyecto['id_proyectos'])->first();
         $proyectoNuevo = new Proyecto();
-        $proyectoNuevo->idparticipante = $proyecto->idparticipante;
-        $proyectoNuevo->modalidad = $proyecto->modalidad;
+        $proyectoNuevo->idparticipante = $proyecto['idparticipante'];
+        $proyectoNuevo->modalidad = $proyecto['modalidad'];
         $proyectoNuevo->sede = 'Internacional';
-        $proyectoNuevo->urlvideo = $proyecto->urlvideo;
-        $proyectoNuevo->categoria = $proyecto->categoria;
-        $proyectoNuevo->titulo = $proyecto->titulo;
-        $proyectoNuevo->descripcion = $proyecto->descripcion;
-        $proyectoNuevo->area = $proyecto->area;
-        $proyectoNuevo->activo_foto = $proyecto->activo_foto;
+        $proyectoNuevo->urlvideo = $proyecto['urlvideo'];
+        $proyectoNuevo->categoria = $proyecto['categoria'];
+        $proyectoNuevo->titulo = $proyecto['titulo'];
+        $proyectoNuevo->descripcion = $proyecto['descripcion'];
+        $proyectoNuevo->area = $proyecto['area'];
+        $proyectoNuevo->foto = $proyecto['foto'];
+        $proyectoNuevo->activo_foto = $proyecto['activo_foto'];
         $proyectoNuevo->save();
     }
 }

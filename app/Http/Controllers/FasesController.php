@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proyecto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FasesController extends Controller
 {
@@ -33,17 +34,68 @@ class FasesController extends Controller
             ]);
         }
     }
-    public function insertarGanadoresInternacional(Request $request)
+    public function insertarGanadoresInternacional()
     {
         try {
-            $calificaciones = $request->calificaciones;
-            $categorias = ['petit', 'kids', 'juvenil', 'media_superior', 'superior', 'posgrado'];
-            foreach ($categorias as &$categoria) {
-                foreach ($calificaciones['Estatal'][$categoria] as &$proyecto) {
-                    if ($proyecto != null) {
-                        $this->registrarGanadoresInternacional($proyecto);
-                    }
-                }
+            $calificaciones = DB::select("SELECT DISTINCT
+            proyecto.id,
+            proyecto.idparticipante,
+            proyecto.modalidad,
+            proyecto.sede,
+            proyecto.urlvideo,
+            proyecto.categoria,
+            proyecto.titulo,
+            proyecto.descripcion,
+            proyecto.area,
+            proyecto.foto,
+            proyecto.activo_foto
+        FROM
+            proyecto
+        JOIN usuarios ON proyecto.idparticipante = proyecto.idparticipante
+        JOIN integrante1 ON proyecto.idparticipante = integrante1.idparticipante
+        WHERE
+            proyecto.categoria = 'Media Superior' AND (integrante1.ingles = '61 - 80%' OR integrante1.ingles = '81 - 100%') AND usuarios.estado = 0
+            UNION
+            SELECT DISTINCT
+            proyecto.id,
+            proyecto.idparticipante,
+            proyecto.modalidad,
+            proyecto.sede,
+            proyecto.urlvideo,
+            proyecto.categoria,
+            proyecto.titulo,
+            proyecto.descripcion,
+            proyecto.area,
+            proyecto.foto,
+            proyecto.activo_foto
+        FROM
+            proyecto
+        JOIN usuarios ON proyecto.idparticipante = proyecto.idparticipante
+        JOIN integrante1 ON proyecto.idparticipante = integrante1.idparticipante
+        WHERE
+            proyecto.categoria = 'Media Superior' AND integrante1.ingles = '61 - 80%' OR integrante1.ingles = '81 - 100%' AND usuarios.estado = 0
+        UNION
+        SELECT DISTINCT
+            proyecto.id,
+            proyecto.idparticipante,
+            proyecto.modalidad,
+            proyecto.sede,
+            proyecto.urlvideo,
+            proyecto.categoria,
+            proyecto.titulo,
+            proyecto.descripcion,
+            proyecto.area,
+            proyecto.foto,
+            proyecto.activo_foto
+        FROM
+            proyecto
+        JOIN usuarios ON proyecto.idparticipante = proyecto.idparticipante
+        JOIN integrante1 ON proyecto.idparticipante = integrante1.idparticipante
+        WHERE
+            proyecto.categoria = 'Superior' AND (integrante1.ingles = '61 - 80%' OR integrante1.ingles = '81 - 100%') AND usuarios.estado = 0");
+
+            foreach ($calificaciones as &$proyecto) {
+                $this->registrarGanadoresInternacional($proyecto);
             }
             return response()->json([
                 'error' => false,

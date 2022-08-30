@@ -93,12 +93,12 @@ class EstadisticasController extends Controller
     public function asesoresPorSede()
     {
         try {
-            $mante = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'el mante')->get());
-            $victoria = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'victoria')->get());
-            $madero = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'madero')->get());
-            $matamoros = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'matamoros')->get());
-            $reynosa = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'reynosa')->get());
-            $nuevoLaredo = count(Asesor::join('proyecto', 'asesor.idparticipante', '=','proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'nuevo laredo')->get());
+            $mante = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'el mante')->get());
+            $victoria = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'victoria')->get());
+            $madero = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'madero')->get());
+            $matamoros = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'matamoros')->get());
+            $reynosa = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'reynosa')->get());
+            $nuevoLaredo = count(Asesor::join('proyecto', 'asesor.idparticipante', '=', 'proyecto.idparticipante')->join('usuarios', 'asesor.idparticipante', '=', 'usuarios.idparticipante')->where('usuarios.estado', 0)->where('proyecto.sede', 'nuevo laredo')->get());
             return response()->json([
                 'error' => false,
                 'estadisticas' => [
@@ -180,6 +180,109 @@ class EstadisticasController extends Controller
             return response()->json([
                 'error' => true,
                 'msg' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function participantesPorGenero()
+    {
+        try {
+            $int1Mujeres = count(Integrante1::join('usuarios', 'integrante1.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('integrante1.sexo', 'Mujer')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $int1Hombres = count(Integrante1::join('usuarios', 'integrante1.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('integrante1.sexo', 'Hombre')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $int2Mujeres = count(Integrante2::join('usuarios', 'integrante2.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('integrante2.sexo', 'Mujer')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $int2Hombres = count(Integrante2::join('usuarios', 'integrante2.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('integrante2.sexo', 'Hombre')
+                ->where('usuarios.estado', 0)
+                ->get());
+            return response()->json([
+                'error' => false,
+                'estadisticas' => [
+                    'Mujer' => $int1Mujeres + $int2Mujeres,
+                    'hombre' => $int1Hombres + $int2Hombres,
+                ],
+            ]);
+        } catch (\Exception$th) {
+            return response()->json([
+                'error' => true,
+                'msg' => $th->getMessage()
+            ]);
+        }
+    }
+    public function proyectosPorArea()
+    {
+        try {
+            $cienciasNaturales = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Ciencias Exactas y Naturales')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $medicina = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Medicina y Salud')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $cienciasSociales = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Ciencias Sociales y Humanidades')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $cienciasIngenieria = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Ciencias de la Ingeniería')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $agropecuarias = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Agropecuarias y Alimentos')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $divulgacion = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Divulgación de la Ciencia')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $medioAmbiente = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Medio Ambiente')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $mecatronica = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Mecatrónica')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $materiales = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Ciencias de los Materiales')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $biologia = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Biología')
+                ->where('usuarios.estado', 0)
+                ->get());
+            $computacion = count(Proyecto::join('usuarios', 'proyecto.idparticipante', '=', 'usuarios.idparticipante')
+                ->where('proyecto.area', 'Computación y Software')
+                ->where('usuarios.estado', 0)
+                ->get());
+            return response()->json([
+                'error' => false,
+                'estadisticas' => [
+                    'Ciencias Exactas y Naturales' => $cienciasNaturales,
+                    'Medicina y Salud' => $medicina,
+                    'Ciencias Sociales y Humanidades' => $cienciasSociales,
+                    'Ciencias de la Ingeniería' => $cienciasIngenieria,
+                    'Agropecuarias y Alimentos' => $agropecuarias,
+                    'Divulgación de la Ciencia' => $divulgacion,
+                    'Medio Ambiente' => $medioAmbiente,
+                    'Mecatrónica' => $mecatronica,
+                    'Ciencias de los Materiales' => $materiales,
+                    'Biología' => $biologia,
+                    'Computación y Software' => $computacion,
+                ],
+            ]);
+        } catch (\Exception$th) {
+            return response()->json([
+                'error' => true,
+                'msg' => $th->getMessage()
             ]);
         }
     }

@@ -38,14 +38,16 @@ Route::get('dashboard/estadisticas/{sede}', [DashboardController::class, 'getEst
 //estadisticas generales
 Route::get('/estadisticas/proyectos/sede', [EstadisticasController::class, 'proyectosPorSede']);
 Route::get('/estadisticas/proyectos/categoria', [EstadisticasController::class, 'proyectosPorCategoria']);
+Route::get('/estadisticas/proyectos/area', [EstadisticasController::class, 'proyectosPorArea']);
 Route::get('/estadisticas/proyectos/categoria/{sede}', [EstadisticasController::class, 'proyectosPorCategoriaPorSede']);
 Route::get('/estadisticas/asesores/sede', [EstadisticasController::class, 'asesoresPorSede']);
 Route::get('/estadisticas/participantes/sede', [EstadisticasController::class, 'participantesPorSede']);
 Route::get('/estadisticas/participantes/categoria', [EstadisticasController::class, 'participantesPorCategoria']);
+Route::get('/estadisticas/participantes/genero', [EstadisticasController::class, 'participantesPorGenero']);
 // importar curriculum de juez
 Route::post('/cv/subir', [CurriculumController::class, 'import']);
 // activar fase estatal e internacional
 Route::post('/fases/estatal', [FasesController::class, 'insertarGanadoresEstatal']);
-Route::post('/fases/internacional', [FasesController::class, 'insertarGanadoresInternacional']);
+Route::get('/fases/internacional', [FasesController::class, 'insertarGanadoresInternacional']);
 // apis apra el excel
 Route::get('/excel/all', [ExcelController::class, 'all']);
